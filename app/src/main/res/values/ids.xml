@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="forgotpassword" type="id" />
+    <item name="rcredit" type="id" />
+    <item name="textVie" type="id" />
+    <item name="divider" type="id" />
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lost_foundpersons">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/splash"
+        android:label="My Finder"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Lost_FoundPersons">
+        <activity android:name=".All_records" />
+        <activity android:name=".Myrecords" />
+        <activity android:name=".Contact_us" />
+        <activity android:name=".about_us" />
+        <activity android:name=".Found" />
+        <activity android:name=".Missing" />
+        <activity android:name=".Dashboard" />
+
+
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".CreateAccount"/>
+    </application>
+
+</manifest>
