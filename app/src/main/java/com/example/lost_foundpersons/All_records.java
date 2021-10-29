@@ -138,7 +138,8 @@ public class All_records extends AppCompatActivity implements Adapter.OnItemClic
 
     @Override
     public void onItemClick(int position, View v) {
-        Toast.makeText(this, "dfhdhdhd", Toast.LENGTH_SHORT).show();
+            // add click events for the all records recycler view here
+//        Toast.makeText(this, "All records clicked", Toast.LENGTH_SHORT).show();
     }
 }
 
