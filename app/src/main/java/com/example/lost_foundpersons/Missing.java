@@ -91,7 +91,7 @@ public class Missing extends AppCompatActivity {
     private void AddData() {
         dialog.show();
         FirebaseStorage reference= FirebaseStorage.getInstance();
-       StorageReference storageRef = reference.getReferenceFromUrl("gs://lostfound-845f8.appspot.com");
+       StorageReference storageRef = reference.getReferenceFromUrl("gs://my-finder-app-b8590.appspot.com");
 //        gs://my-finder-app-b8590.appspot.com
             StorageReference  name=storageRef.child(imageuri.getLastPathSegment());
 
