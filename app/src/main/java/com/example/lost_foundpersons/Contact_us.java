@@ -17,8 +17,7 @@ TextView textView3,textView4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_contact_us);
         textView3=findViewById(R.id.textView3);
         textView4=findViewById(R.id.textView4);

@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -79,8 +80,6 @@ public class Found extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_found);
         //initializing radioGroup
         radioGroup = findViewById(R.id.group_gender);
@@ -105,7 +104,6 @@ public class Found extends AppCompatActivity {
                     status = "Alive";
                     break;
                 case R.id.found_dead:
-
                     status = "Dead";
                     break;
             }
@@ -209,19 +207,16 @@ public class Found extends AppCompatActivity {
     }
     private void StoreLink(String url)
     {
-        MissData missData = new MissData(name.getText().toString(), location.getText().toString(), age.getText().toString(), gender, "Found","",getUser(),status);
-        Miss miss=new Miss(url);
-        db.collection("missing").document(name.getText().toString())
+        MissData missData = new MissData(name.getText().toString(), location.getText().toString(), age.getText().toString(), gender, "Found",url,getUser(),status,null);
+//        Miss miss=new Miss(url);
+        db.collection("missing").document()
                 .set(missData)
-                .addOnSuccessListener(aVoid -> {db.collection("missing").document(name.getText().toString()).collection("images")
-                        .document().set(miss).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                afterSuccess();
-                                Toast.makeText(getApplicationContext(), "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-               });
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        afterSuccess();
+                    }
+                });
     }
     public String getUser()
     {
@@ -242,7 +237,15 @@ public class Found extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+public void getMatchedData()
+{
+        db.collection("missing").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+            }
+        });
+}
 
   public void afterSuccess() {
         imageView.setImageResource(R.drawable.profile1);
@@ -250,6 +253,7 @@ public class Found extends AppCompatActivity {
         name.getText().clear();
         age.getText().clear();
         radioGroup.clearCheck();
+      Toast.makeText(this, "Person Posted Successfully!", Toast.LENGTH_SHORT).show();
     }
 }
 

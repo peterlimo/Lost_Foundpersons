@@ -11,14 +11,12 @@
         android:id="@+id/Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5719C6"
+        android:background="#3F51B5"
         app:title="My Finder"
-        app:navigationIcon="@drawable/ic_back"
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:navigationIcon="?attr/homeAsUpIndicator"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
@@ -78,7 +76,6 @@
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/ic_baseline_call_24"
         android:tint="@color/black"
         android:backgroundTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
@@ -104,8 +101,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/ic_baseline_mark_email_unread_24"
-        android:backgroundTint="@color/black"
+       android:backgroundTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />

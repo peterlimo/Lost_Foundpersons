@@ -4,8 +4,9 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash"
@@ -13,6 +14,30 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lost_FoundPersons">
+        <receiver
+            android:enabled="true"
+            android:exported="true"
+            android:name=".receivers.StartMyServiceAtBootReceiver"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </receiver>
+        <receiver android:exported="false"
+            android:name=".receivers.CheckConnectivity" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <activity android:name=".NotificationView"
+            >
+
+        </activity>
+        <activity android:name=".MatchedActivity" />
         <activity android:name=".All_records" />
         <activity android:name=".Myrecords" />
         <activity android:name=".Contact_us" />
@@ -20,9 +45,6 @@
         <activity android:name=".Found" />
         <activity android:name=".Missing" />
         <activity android:name=".Dashboard" />
-
-
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -32,8 +54,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".CreateAccount"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CreateAccount" />
+        <service android:name=".receivers.Myservice"/>
     </application>
 
 </manifest>

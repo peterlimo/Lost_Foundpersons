@@ -11,8 +11,7 @@
         android:id="@+id/Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5719C6"
-        app:navigationIcon="@drawable/ic_back"
+        android:background="#3F51B5"
         app:title="My Records"
         app:titleTextColor="@color/white" />
 

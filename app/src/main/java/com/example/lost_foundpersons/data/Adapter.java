@@ -18,10 +18,12 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private List<MissData> UserList;
     private Context context;
-    public Adapter(List<MissData>UserList,Context context){
+    private OnItemClickListener listener;
+    public Adapter(List<MissData>UserList,Context context,OnItemClickListener listener){
 
         this.UserList=UserList;
         this.context=context;
+        this.listener=listener;
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return UserList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView  tv_name,tv_age,tv_location,tv_gender,tv_status;
         public ViewHolder(@NonNull View itemView) {
@@ -62,6 +64,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             tv_location=itemView.findViewById(R.id.miss_lo);
             tv_gender=itemView.findViewById(R.id.miss_gender);
             tv_status=itemView.findViewById(R.id.miss_status);
+            itemView.setOnClickListener(this);
         }
 
         public void setData(String name,String location, String age,String gender, String status){
@@ -75,5 +78,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             ImageView imageView=itemView.findViewById(R.id.imageview);
             Picasso.get().load(image).into(imageView);
         }
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(getAdapterPosition(),v);
+        }
+
     }
+   public interface OnItemClickListener{
+        void onItemClick(int position,View v);
+   }
 }

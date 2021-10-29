@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "92787646120",
-    "project_id": "my-finder-app-b8590",
-    "storage_bucket": "my-finder-app-b8590.appspot.com"
+    "project_number": "41422028205",
+    "project_id": "lostfound-845f8",
+    "storage_bucket": "lostfound-845f8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:92787646120:android:ece50ac6a287a05d072c9d",
+        "mobilesdk_app_id": "1:41422028205:android:0091e7f8d77f212f50f524",
         "android_client_info": {
           "package_name": "com.example.lost_foundpersons"
         }
       },
       "oauth_client": [
         {
-          "client_id": "92787646120-cq4hkp2b44c86n1f2k0g47klu5lab0vs.apps.googleusercontent.com",
+          "client_id": "41422028205-af5mcinch2paghe0kv2n44rme9p5sn6c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC75FWgBy0o6mPYySrc-dxZQc86j4gWfxQ"
+          "current_key": "AIzaSyBD9dFSA6opApBD6V6aW68uiGuRCHrtG70"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "92787646120-cq4hkp2b44c86n1f2k0g47klu5lab0vs.apps.googleusercontent.com",
+              "client_id": "41422028205-af5mcinch2paghe0kv2n44rme9p5sn6c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.lost_foundpersons.data.Miss;
 import com.example.lost_foundpersons.data.MissData;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -32,22 +33,20 @@ public class Missing extends AppCompatActivity {
     CircleImageView pickmain;
     Toolbar toolbar;
     EditText name,location,age;
-     Button submitbtn;
-     String gender="";
-     ProgressDialog dialog;
+    Button submitbtn;
+    String gender="";
+    ProgressDialog dialog;
     RadioGroup radioGroup;
     Uri imageuri;
     FirebaseFirestore db;
-SharedPreferences pref;
-String username;
+    SharedPreferences pref;
+    String username;
     //image view
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //hide status
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_missing);
         //initializing radioGroup
         pref=getSharedPreferences("user",MODE_PRIVATE);
@@ -58,7 +57,6 @@ String username;
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.missingmale:
-
                             gender="male";
                         break;
                     case R.id.missingfemale:
@@ -93,8 +91,8 @@ String username;
     private void AddData() {
         dialog.show();
         FirebaseStorage reference= FirebaseStorage.getInstance();
-       StorageReference storageRef = reference.getReferenceFromUrl("gs://my-finder-app-b8590.appspot.com");
-
+       StorageReference storageRef = reference.getReferenceFromUrl("gs://lostfound-845f8.appspot.com");
+//        gs://my-finder-app-b8590.appspot.com
             StorageReference  name=storageRef.child(imageuri.getLastPathSegment());
 
             name.putFile(imageuri).addOnSuccessListener(taskSnapshot -> name.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -111,14 +109,19 @@ String username;
 
 
     private void StoreLink(String url) {
-        MissData missData=new MissData(name.getText().toString(),location.getText().toString(),age.getText().toString(),gender,"missing","",getUser(),"Alive");
-        Miss miss=new Miss(url);
-        db.collection("missing").document(name.getText().toString())
+        MissData missData=new MissData(name.getText().toString(),location.getText().toString(),age.getText().toString(),gender,"missing",url,getUser(),"Alive",null);Miss miss=new Miss(url);
+        db.collection("missing")
+                .document()
                 .set(missData)
-                .addOnSuccessListener(aVoid -> db.collection("missing").document(name.getText().toString()).collection("images")
-                        .document().set(miss).addOnSuccessListener(
-                        this::onSuccess).addOnFailureListener(e ->
-                        Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_SHORT).show()));
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Display Success message
+                        Toast.makeText(Missing.this, "Person Posted Successfully!!", Toast.LENGTH_SHORT).show();
+                      // Launch the activity to display all the records that you have posted
+                        startActivity(new Intent(getApplicationContext(),Myrecords.class));
+                    }
+                });
 
     }
 

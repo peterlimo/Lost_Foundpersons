@@ -1,9 +1,13 @@
 package com.example.lost_foundpersons.data;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.ServerTimestamp;
+
 public class MissData {
     String name,location,age,gender,status,url,user,isAlive;
-
-    public MissData(String name, String location, String age, String gender, String status, String url, String user, String isAlive) {
+   @ServerTimestamp
+   Timestamp time=null;
+    public MissData(String name, String location, String age, String gender, String status, String url, String user, String isAlive,Timestamp time) {
         this.name = name;
         this.location = location;
         this.age = age;
@@ -12,6 +16,7 @@ public class MissData {
         this.url = url;
         this.user = user;
         this.isAlive = isAlive;
+        this.time=time;
     }
 
     public String getName() {
@@ -76,5 +81,13 @@ public class MissData {
 
     public void setIsAlive(String isAlive) {
         this.isAlive = isAlive;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

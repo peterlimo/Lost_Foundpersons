@@ -6,6 +6,16 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="about">
+        <b>My finder</b> is an application to help
+        you trace and rescue missing and found persons
+        and reunite them with their families.
+        <p>
+        A team of users along with my application
+            are part of the operation to help trace
+            the missing person in their jurisdiction.
+        </p>
+    </string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
