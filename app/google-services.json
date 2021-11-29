@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "41422028205-eo5g5bp3aek18aiequrvfdb5pcn8ivka.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.lost_foundpersons",
-            "certificate_hash": "459437f9bee482e7772d7c90e2bb459b8321dded"
-          }
-        },
-        {
           "client_id": "41422028205-af5mcinch2paghe0kv2n44rme9p5sn6c.apps.googleusercontent.com",
           "client_type": 3
         }
