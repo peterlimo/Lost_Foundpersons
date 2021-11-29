@@ -78,6 +78,7 @@ password=findViewById(R.id.miss_location);
                        pref=getSharedPreferences("user",MODE_PRIVATE);
                        editor=pref.edit();
                        editor.putString("email",eemail);
+                       editor.putString("type","normal");
                        editor.commit();
                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                        startActivity(intent);

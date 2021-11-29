@@ -24,6 +24,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.lost_foundpersons.data.Match;
 import com.example.lost_foundpersons.receivers.Myservice;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,7 +41,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     Notificationn notificationn;
     //declaring variables
     Toolbar toolbar;
@@ -45,6 +51,8 @@ public class Dashboard extends AppCompatActivity {
     TextView welcome_txt;
     FirebaseFirestore db;
     String name;
+    GoogleApiClient googleApiClient;
+    GoogleSignInOptions gso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +62,13 @@ public class Dashboard extends AppCompatActivity {
         db=FirebaseFirestore.getInstance();
 
         pref=getSharedPreferences("user",MODE_PRIVATE);
-
+      gso= new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
 
 //initializing variables
         welcome_txt=findViewById(R.id.welcome_txt);
@@ -148,26 +162,47 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.logout_user:
+
                 SharedPreferences preferences=getSharedPreferences("user",MODE_PRIVATE);
                 SharedPreferences.Editor editor=preferences.edit();
-                editor.clear();
-                editor.apply();
-                Toast.makeText(this, "Logout Successful!!", Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent1);
-                this.finish();
+                String type= preferences.getString("type","");
+                if(type.equals("normal")) {
+                    editor.clear();
+                    editor.apply();
+                    Toast.makeText(this, "Logout Successful!!", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent1);
+                    this.finish();
+                }
+                else if(type.equals("google"))
+                {
+                    Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess())
+                            {
+                                editor.clear();
+                                editor.apply();
+                                Toast.makeText(getApplicationContext(), "Logout Successful!!", Toast.LENGTH_SHORT).show();
+                                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent1);
+                                finish();
+                            }
+                        }
+                    });
+
+                }
                 return true;
             case R.id.share:
                 ApplicationInfo api = getApplicationContext().getApplicationInfo();
-                String apkpath = api.sourceDir;
                 Intent in = new Intent(Intent.ACTION_SEND);
-                in.setType("application/vnd.android.package-archive");
-                in.putExtra(Intent.EXTRA_STREAM, String.valueOf(Boolean.parseBoolean(String.valueOf(Uri.fromFile(new File(apkpath))))));
+                in.putExtra(Intent.EXTRA_TEXT,"Hey please check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
+                in.setType("text/plain");
                 startActivity(Intent.createChooser(in, "ShareVia"));
                 return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -203,6 +238,10 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
 
 
