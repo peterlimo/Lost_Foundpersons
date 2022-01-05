@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash"
@@ -14,29 +15,30 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lost_FoundPersons">
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".EnterEmailToReset" />
+
         <receiver
+            android:name=".receivers.StartMyServiceAtBootReceiver"
             android:enabled="true"
             android:exported="true"
-            android:name=".receivers.StartMyServiceAtBootReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </receiver>
-        <receiver android:exported="false"
-            android:name=".receivers.CheckConnectivity" >
+        <receiver
+            android:name=".receivers.CheckConnectivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <activity android:name=".NotificationView"
-            >
 
-        </activity>
+        <activity android:name=".NotificationView" />
         <activity android:name=".MatchedActivity" />
         <activity android:name=".All_records" />
         <activity android:name=".Myrecords" />
@@ -56,7 +58,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateAccount" />
-        <service android:name=".receivers.Myservice"/>
+
+        <service android:name=".receivers.Myservice" />
     </application>
 
 </manifest>

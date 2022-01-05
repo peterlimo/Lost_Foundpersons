@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 //    com.google.firebase.firestore.auth.User user;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +53,8 @@ password=findViewById(R.id.miss_location);
                     .setCancelable(false)
                     .setPositiveButton("Yes",
                             (dialog, which) -> {
-                               //Intent intent = new Intent(getApplicationContext(), Reset_password.class);
-                               // startActivity(intent);
+                                Intent intent = new Intent(getApplicationContext(), EnterEmailToReset.class);
+                                startActivity(intent);
                             }).setNegativeButton("No",
                     (dialog, which) -> {
 
