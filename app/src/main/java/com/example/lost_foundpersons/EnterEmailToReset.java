@@ -44,12 +44,10 @@ FirebaseFirestore db;
     private void generateCode() {
         Random random= new Random();
         int no=random.nextInt((10000 - 1000) + 1) + 1000;
-        Toast.makeText(this, no+"", Toast.LENGTH_SHORT).show();
-
         Preferences preferences=new Preferences(this);
         Reset reset=new Reset(reset_email.getText().toString(),no+"");
         if (preferences.getUser()!=null) {
-            db.collection("reset").document(preferences.getUser()).
+            db.collection("reset").document(reset_email.getText().toString()).
                     set(reset).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -78,14 +76,13 @@ FirebaseFirestore db;
         call.enqueue(new Callback<Reset>() {
             @Override
             public void onResponse(Call<Reset> call, Response<Reset> response) {
-                Toast.makeText(EnterEmailToReset.this, "Password reset successfully , please check you email for the verification code!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(),ChangePasswordActivity.class);
                 startActivity(intent);
             }
             @Override
             public void onFailure(Call<Reset> call, Throwable t) {
-                Toast.makeText(EnterEmailToReset.this, "Failed to reset password, please try again!", Toast.LENGTH_SHORT).show();
-            }
+                Intent intent = new Intent(getApplicationContext(),ChangePasswordActivity.class);
+                startActivity(intent); }
         });
     }
 }

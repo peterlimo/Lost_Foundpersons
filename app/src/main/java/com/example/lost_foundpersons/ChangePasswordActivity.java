@@ -40,13 +40,27 @@ Preferences preferences;
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkCode(text_code.getText().toString());
+//                Checking email availability
+                db.collection("users").document(text_email.getText().toString()).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()){
+                                    checkCode(text_code.getText().toString());
+                                }
+                                else {
+                                    Toast.makeText(ChangePasswordActivity.this, "Email does not exist", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
             }
         });
     }
 
     private void checkCode(String code) {
-        db.collection("reset").document(preferences.getUser()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("reset").document(text_email.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists())
