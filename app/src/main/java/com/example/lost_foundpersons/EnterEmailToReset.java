@@ -64,7 +64,8 @@ FirebaseFirestore db;
 
     }
 
-    private void sendRequest(String email, String code) {
+    private void sendRequest(String email, String code)
+    {
         Reset reset=new Reset(email,code);
 
         Retrofit retrofit=new Retrofit.Builder()
